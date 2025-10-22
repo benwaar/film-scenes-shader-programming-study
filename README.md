@@ -104,10 +104,13 @@ graph TD
 
 ---
 
-## 🧭 Next Steps
+---
 
-- [ ] Add first film scene analysis entry  
-- [ ] Learn Flutter shader basics (`FragmentProgram`, `.frag` setup)  
-- [ ] Create a “film mood” test shader (color tone, light falloff, or vignette)  
-- [ ] Integrate shader into game card render loop  
-- [ ] Document emotional effect achieved  
+## 🔄 Project Continuation
+
+This repository is part of an ongoing creative research series exploring film imagery and shaders in Flutter.
+
+To continue from where the last session left off, see:  
+👉 [**NEXT_STEPS.md**](NEXT_STEPS.md)
+
+That file tracks the most recent progress, current focus, and upcoming experiments.
