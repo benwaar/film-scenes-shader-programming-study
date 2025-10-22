@@ -80,6 +80,12 @@ graph TD
 | **[Shader Translation Study](research/film-to-shader-mapping.md)** | 🟣 | Mapping cinematic looks to shader parameters and math |
 | **[Cinematic Card Effects](research/card-game-shader-styles.md)** | 🔵 | Designing flat, film-inspired effects for Flutter games |
 
+### 📄 Research Files
+
+- [🎬 Scene Study Template](research/scene-study-template.md)
+- [🌈 Intro to Flutter Shaders](research/flutter-shader-intro.md)
+- [🎞️ Film-to-Shader Mapping](research/film-to-shader-mapping.md)
+- [🂡 Cinematic Card Effects](research/card-game-shader-styles.md)
 
 ---
 
@@ -87,9 +93,9 @@ graph TD
 
 | Topic | Status | Summary |
 |-------|--------|----------|
-| **[Procedural Lighting in 2D](research/procedural-lighting.md)** | 🧪 | Creating depth and atmosphere in flat scenes |
-| **[Emotion Through Color & Texture](research/color-emotion-shaders.md)** | 🧪 | Using shader-driven color changes to reflect game states |
-| **[Shader Optimization for Mobile](research/flutter-shader-performance.md)** | 🧪 | Ensuring smooth rendering across devices |
+| **[Procedural Lighting in 2D](research/future/procedural-lighting.md)** | 🧪 | Creating depth and atmosphere in flat scenes |
+| **[Emotion Through Color & Texture](research/future/color-emotion-shaders.md)** | 🧪 | Using shader-driven color changes to reflect game states |
+| **[Shader Optimization for Mobile](research/future/flutter-shader-performance.md)** | 🧪 | Ensuring smooth rendering across devices |
 
 ---
 
@@ -103,6 +109,41 @@ graph TD
 | **Visual Notebook (.docx)** | Scene breakdowns and personal notes |
 
 ---
+
+## 🧭 Next Steps
+
+- [ ] Add first film scene analysis entry  
+- [ ] Learn Flutter shader basics (`FragmentProgram`, `.frag` setup)  
+- [ ] Create a “film mood” test shader (color tone, light falloff, or vignette)  
+- [ ] Integrate shader into game card render loop  
+- [ ] Document emotional effect achieved  
+
+---
+
+## 🎥 Study Approach: Start Simple, Build Up
+
+This project follows a **progressive learning approach** — starting with simple shader effects and gradually layering complexity inspired by cinematic imagery.
+
+1. Begin with basic fragment shaders (film grain, color tint, vignette).  
+2. Apply them to your 2D card game using Flutter’s shader API.  
+3. Analyze how these visual effects mirror filmic techniques (composition, color, tone).  
+4. Incrementally combine effects to simulate cinematic moods (e.g., noir, dreamy, retro).  
+
+> _“Build from simplicity — each small shader teaches one piece of visual language.”_
+
+---
+
+## 🌐 Resources & Inspiration
+
+Here are key references used to guide shader development and visual research:
+
+| # | Resource | Description |
+|---|-----------|--------------|
+| 1 | [**Writing & using fragment shaders (Flutter Docs)**](https://docs.flutter.dev/ui/design/graphics/fragment-shaders?utm_source=chatgpt.com) | Official Flutter guide for loading and using `.frag` shaders. Essential for setup and understanding. |
+| 2 | [**Shady Flutter: Using GLSL Shaders in Flutter**](https://blog.codemagic.io/shady-flutter/?utm_source=chatgpt.com) | Hands-on intro with GLSL shader examples in Flutter — practical for 2D visual effects. |
+| 3 | [**Practical Fragment Shaders in Flutter – Droids on Roids**](https://www.thedroidsonroids.com/blog/fragment-shaders-in-flutter-app-development?utm_source=chatgpt.com) | Explains fragment shaders with clear examples, ideal for learning Flutter shader workflow. |
+| 4 | [**Analyzing Optic & Filmic Effects in WebGL**](https://medium.com/%40josecastrovaron/analyzing-optic-and-filmic-effects-in-webgl-47abe74df74e?utm_source=chatgpt.com) | Visual deep-dive into film grain, LUTs, and color grading — useful for connecting film language to shader logic. |
+| 5 | [**Film Grain Shader Example (GLSL)**](https://gameidea.org/2023/12/01/film-grain-shader/?utm_source=chatgpt.com) | Simple yet powerful example shader for film grain — perfect as a starting effect. |
 
 ---
 

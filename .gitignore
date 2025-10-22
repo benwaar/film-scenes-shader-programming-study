@@ -1,0 +1,55 @@
+# Flutter / Dart
+.dart_tool/
+.packages
+.pub-cache/
+build/
+android/
+ios/
+web/.dart_tool/
+windows/
+linux/
+macos/
+.flutter-plugins
+.flutter-plugins-dependencies
+pubspec.lock
+
+# Generated shader binaries
+shaders/*.spv
+shaders/*.metallib
+
+# IDE and system files
+.vscode/
+.idea/
+*.iml
+*.log
+*.DS_Store
+Thumbs.db
+
+# Temporary or local dev data
+*.tmp
+*.swp
+*.bak
+*.old
+*.orig
+
+# Personal / session files
+notes/
+scratch/
+drafts/
+private/
+
+# Compiled or export folders
+dist/
+out/
+bin/
+coverage/
+
+# Research and notebook artifacts
+docs/~$*.docx
+docs/~*.tmp
+*.pdf
+
+# Exclude uploaded images, keep source
+assets/tmp/
+assets/export/
+!assets/scene_stills/
