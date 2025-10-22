@@ -80,6 +80,7 @@ graph TD
 | **[Shader Translation Study](research/film-to-shader-mapping.md)** | 🟣 | Mapping cinematic looks to shader parameters and math |
 | **[Cinematic Card Effects](research/card-game-shader-styles.md)** | 🔵 | Designing flat, film-inspired effects for Flutter games |
 
+
 ---
 
 ## 🧠 Future Research
