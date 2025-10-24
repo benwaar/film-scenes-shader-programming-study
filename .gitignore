@@ -33,7 +33,6 @@ Thumbs.db
 *.orig
 
 # Personal / session files
-notes/
 scratch/
 drafts/
 private/

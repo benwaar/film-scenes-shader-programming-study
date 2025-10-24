@@ -25,6 +25,16 @@ Visual Storytelling
 
 ---
 
+### Notes & Explanations
+Reference documents explaining technologies and language choices.
+
+See:
+- `docs/notes/shader_languages.md`
+- `docs/notes/flutter_rendering.md`
+- `docs/notes/roadmap_shader_targets.md`
+
+---
+
 ## 🎓 Plan of Study
 
 A practical, art-driven roadmap connecting **film analysis** → **shader experimentation** → **Flutter implementation**.
