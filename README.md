@@ -147,3 +147,15 @@ To continue from where the last session left off, see:
 👉 [**NEXT_STEPS.md**](NEXT_STEPS.md)
 
 That file tracks the most recent progress, current focus, and upcoming experiments.
+
+
+---
+
+## 🚀 Start here for new sessions
+
+If you're opening this project in a **fresh ChatGPT session** (or for a new collaborator):
+
+1. Read **`START_HERE_FOR_CHATGPT.md`** for the bootstrapping instructions and project preferences.
+2. Then read **`NEXT_STEPS.md`** to continue from the topmost unchecked item.
+3. Keep code clean, modern, and well-commented; target **WebGL2 / GLSL ES 3.00** and use `shaders/manifest.json`.
+
