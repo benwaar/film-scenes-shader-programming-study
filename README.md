@@ -1,6 +1,6 @@
 # 🎨 Visual Language & Shader Coding Study (Flutter Focus)
 
-This repository explores how **visual language in film** can inspire **shader-based visual design** for 2D games built in **Flutter** — focusing on **emotion, color, and texture** rather than 3D realism.  
+This repository explores how **visual language in film** can inspire **shader-based visual design** for 2D games focusing on **emotion, color, and texture** rather than 3D realism.  
 
 > _“Studying how cinematic imagery can live inside interactive flat worlds.”_
 
@@ -13,11 +13,11 @@ Visual Storytelling
 ├── Film Imagery Analysis 🟢 *Current Focus*
 │   ├── Composition, Color, Light, Texture
 │   └── Symbolism & Visual Mood
-├── Shader Design in Flutter 🟡 *Next*
-│   ├── Fragment Shaders (GLSL → Flutter)
+├── Shader Design 🟡 *Next*
+│   ├── Fragment Shaders (GLSL)
 │   ├── Procedural Light, Blur, Grain, Tint
 │   └── Color Grading & Post-FX for 2D Cards
-└── Visual Integration 🟣 *Future*
+└── Visual Integration in WebComponents and Flutter 🟣 *Future*
     ├── Applying Shaders to Card Elements
     ├── Interactive Layering (hover, selection)
     └── Cinematic Style Consistency Across Scenes
@@ -49,9 +49,9 @@ A practical, art-driven roadmap connecting **film analysis** → **shader experi
 - Translate studied looks into shader concepts (e.g., glow, vignetting, fog)  
 - Learn core **GLSL syntax** and **fragment shader math**  
 - Explore **light falloff**, **noise**, **blend modes**, and **color tinting**  
-- Prototype looks in Flutter’s shader API (`FragmentProgram`, `ShaderBuilder`, etc.)
 
 ### **Phase 3 – Flutter Shader Implementation**
+- Prototype looks in Flutter’s shader API (`FragmentProgram`, `ShaderBuilder`, etc.)
 - Integrate shaders into your card game prototype  
 - Apply effects to specific elements (cards, background, overlays)  
 - Test **dynamic states** — e.g., hover glow, selection pulse, match start shimmer  
@@ -112,27 +112,6 @@ A goal-based mini-study that simulates a retro visor UI which glitches between E
 
 ---
 
-## 🛠️ Tools & Framework
-
-| Tool | Use |
-|------|-----|
-| **Flutter / Dart** | Core game and UI platform |
-| **GLSL (via Flutter Shader API)** | Real-time fragment shader logic |
-| **Notion / GitHub** | Research and progress documentation |
-| **Visual Notebook (.docx)** | Scene breakdowns and personal notes |
-
----
-
-## 🧭 Next Steps
-
-- [ ] Add first film scene analysis entry  
-- [ ] Learn Flutter shader basics (`FragmentProgram`, `.frag` setup)  
-- [ ] Create a “film mood” test shader (color tone, light falloff, or vignette)  
-- [ ] Integrate shader into game card render loop  
-- [ ] Document emotional effect achieved  
-
----
-
 ## 🎥 Study Approach: Start Simple, Build Up
 
 This project follows a **progressive learning approach** — starting with simple shader effects and gradually layering complexity inspired by cinematic imagery.
@@ -162,7 +141,7 @@ Here are key references used to guide shader development and visual research:
 
 ## 🔄 Project Continuation
 
-This repository is part of an ongoing creative research series exploring film imagery and shaders in Flutter.
+This repository is part of an ongoing creative research series exploring film imagery and shaders.
 
 To continue from where the last session left off, see:  
 👉 [**NEXT_STEPS.md**](NEXT_STEPS.md)

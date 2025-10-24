@@ -6,7 +6,6 @@ _Last updated: October 22, 2025_
 - Repository structure created  
 - `README.md` written (Flutter-focused visual language + shader plan)  
 - `/research/flutter-shader-intro.md` complete — includes working example and shader integration guide  
-- Visual Study Notebook (`.docx`) template created and linked  
 
 ---
 
@@ -17,14 +16,16 @@ _Last updated: October 22, 2025_
 - [ ] Document emotional/visual effect in the Visual Notebook  
 
 ---
-## Track: In-Helmet Display (HUD) Language Trainer
-- [ ] Wire Study 1: `shaders/hud_text_flicker.frag` into demo and verify uniforms
-- [ ] Add two text textures (English/Toki Pona) @ 1024w PNG, premultiplied alpha
-- [ ] Script `u_lock` 0→1 over 3s and record a gif
-- [ ] Move to Study 2: swap to SDF atlases; verify per-glyph flicker
-- [ ] Add id map & glyph-UV metadata texture; tune flip cadence
-- [ ] Study 3: enable glow pass + curvature; tweak scanlines/chroma
-- [ ] Document final parameters in `docs/studies/in-helmet-display/shader-notes.md`
+## Track: In-Helmet HUD – WebGL (GLSL only)
+
+- [ ] Run the WebGL demo (`webgl2/1_hud_lang/`) and verify Study 1 (flicker → lock)
+- [ ] Tweak shader params (`u_lock` timeline, scanline strength, chroma split)
+- [ ] Add 2+ text pairs (English ↔ Toki Pona) and test
+- [ ] Use the Describe→Identify→Extract method (`docs/notes/method_film_analysis.md`)
+- [ ] Write one analysis using the template (`docs/templates/scene-analysis-template.md`)
+- [ ] Map analysis → shader tasks (fill the “Shader Mapping” section)
+- [ ] Optional: Study 2 (per-glyph) in WebGL
+- [ ] Optional: Study 3 (curvature/glow pass) in WebGL
 
 ---
 
