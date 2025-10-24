@@ -17,6 +17,56 @@ _Last updated: October 22, 2025_
 - [ ] Understand / document differences between different GL versions
 
 ---
+
+## 💬 ChatGPT Suggestions – Next Steps
+
+These notes summarize where to continue next time, based on the current repo structure and study goals.
+
+### 🎨 Shader Development
+- [ ] Finalize `hud_text_flicker.frag` behavior:
+  - test with `u_lock` sweep 0→1 to confirm glitch resolves cleanly.
+  - experiment with scanline and chroma split parameters (add `@range` hints for sliders).
+- [ ] Add second study: `hud_glyph_flip.frag` – per-glyph language switching.
+  - plan uniform + texture structure (atlas, idMap).
+  - test fallback monochrome text pass first.
+- [ ] Create shared utility file `shaders/common.glslinc` for `hash1`, `hash2`, `barrel()`, etc.
+- [ ] Ensure all fragment shaders use `#version 300 es` or rely on player auto-upgrade.
+
+### 🧩 Player Enhancements
+- [ ] Integrate manifest pre-flight check (warn if listed shader missing).
+- [ ] Add optional FPS/performance overlay.
+- [ ] Extend uniform UI to support `vec2`, `vec3`, and `bool`.
+- [ ] Allow saving/loading preset JSONs under `presets/<shader>/`.
+- [ ] Improve error handling: clear on-screen messages for shader compile/link failures.
+
+### 📁 Repo / Structure
+- [ ] Add `docs/INDEX.md` linking to study notes, templates, and analysis method.
+- [ ] Keep `chatgpt_prefs.json` updated with `"shader_language": "GLSL ES 3.00"` and `"auto_upgrade_shaders": true`.
+- [ ] Optionally add `chatgpt_history.md` — brief log of each session’s updates.
+
+### 🎬 Film-Scene Analysis Loop
+- [ ] Continue using **Describe → Identify → Extract → Map** workflow:
+- describe a scene effect in natural language.
+- identify up to three similar reference films.
+- extract the visual technique or shader pattern.
+- map to a new GLSL study file under `/shaders/`.
+- [ ] For each new scene, fill the analysis template and link to the resulting shader study.
+
+### 🚀 Future Studies
+- [ ] Add Study 2: per-glyph language flipping (training transition).
+- [ ] Add Study 3: CRT curvature + glow post-pass.
+- [ ] Later: mirror shaders in WGSL for WebGPU comparison.
+- [ ] Optionally: minimal screenshot capture button in player.
+
+---
+
+🗒️ *Next session*:  
+- review current shader output vs. film reference,  
+- decide which visual behaviors to refine or add to the next study folder,  
+- and align documentation + player features with your shader iteration pace.
+
+
+---
 ## Track: In-Helmet HUD – WebGL (GLSL only)
 
 - [ ] Run the WebGL demo (`webgl2/1_hud_lang/`) and verify Study 1 (flicker → lock)
