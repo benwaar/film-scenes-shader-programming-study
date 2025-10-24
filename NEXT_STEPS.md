@@ -17,6 +17,16 @@ _Last updated: October 22, 2025_
 - [ ] Document emotional/visual effect in the Visual Notebook  
 
 ---
+## Track: In-Helmet Display (HUD) Language Trainer
+- [ ] Wire Study 1: `shaders/hud_text_flicker.frag` into demo and verify uniforms
+- [ ] Add two text textures (English/Toki Pona) @ 1024w PNG, premultiplied alpha
+- [ ] Script `u_lock` 0→1 over 3s and record a gif
+- [ ] Move to Study 2: swap to SDF atlases; verify per-glyph flicker
+- [ ] Add id map & glyph-UV metadata texture; tune flip cadence
+- [ ] Study 3: enable glow pass + curvature; tweak scanlines/chroma
+- [ ] Document final parameters in `docs/studies/in-helmet-display/shader-notes.md`
+
+---
 
 ## 🧪 Coming Soon
 - [ ] `card_glow.frag`: hover/selection highlight shader  

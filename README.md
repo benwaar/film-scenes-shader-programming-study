@@ -79,6 +79,9 @@ graph TD
 | **[Intro to Flutter Shaders](research/flutter-shader-intro.md)** | 🟡 | Basics of integrating GLSL-like shaders into Flutter |
 | **[Shader Translation Study](research/film-to-shader-mapping.md)** | 🟣 | Mapping cinematic looks to shader parameters and math |
 | **[Cinematic Card Effects](research/card-game-shader-styles.md)** | 🔵 | Designing flat, film-inspired effects for Flutter games |
+### NEW: In-Helmet Display – Language Trainer (80s HUD)
+A goal-based mini-study that simulates a retro visor UI which glitches between English ↔ Toki Pona and then stabilizes on Toki Pona. Includes three shaders (simple → advanced) and a small Flutter demo. See: `docs/studies/in-helmet-display/README.md`.
+
 
 ### 📄 Research Files
 
