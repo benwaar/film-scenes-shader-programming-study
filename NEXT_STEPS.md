@@ -18,6 +18,29 @@ _Last updated: October 22, 2025_
 
 ---
 
+## 💬 ChatGPT Suggestions – VFX Breakdown & Timing Map (to add now)
+
+- [ ] Create companion VFX breakdown: `docs/scene_guides/opening_helmet_training_scene_vfx.md`
+- [ ] Create VFX timing map: `docs/scene_guides/opening_helmet_training_scene_timing.md`
+- [ ] Implement slow→fast **text/image swap ramp**:
+  - Start with dual-texture swap (English ↔ Toki Pona) via `hud_text_flicker.frag`.
+  - Drive `flickRate` from slow → fast (ease-in) while `u_lock` ramps 0→1.
+  - Keep **code reusable** by splitting into:
+    1) **Text pass** (swap logic; textures or SDF glyphs)
+    2) **Symbol pulse** (tawa glyph overlay)
+    3) **Post FX** (CRT curvature/glow/scanlines)
+- [ ] Decide: single shader with mode flags vs. multiple small shaders
+  - ✅ Prefer **multiple small shaders** for clarity & reuse:
+    - `hud_text_flicker.frag` (dual texture swap)
+    - `hud_glyph_flip.frag` (SDF per-glyph swap)
+    - `hud_symbol_pulse.frag` (tawa icon overlay)
+    - `hud_crt_curvature.frag` (post-pass)
+- [ ] Player integration:
+  - Add `flickRate`, `scanStrength`, `hueShift`, `tawaPulse` as float uniforms (with `@range` hints).
+  - Script `u_lock`, `flickRate`, `tawaPulse` in `player.js` using a simple timeline/ease.
+
+
+---
 ## 💬 ChatGPT Suggestions – Next Steps
 
 These notes summarize where to continue next time, based on the current repo structure and study goals.
