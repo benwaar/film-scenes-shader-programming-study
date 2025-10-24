@@ -1,5 +1,7 @@
 # 🎬 Next Steps – Film Scenes Shader Programming Study
 
+- [ ] **Pre-Flight:** Post a “Session Pre-Flight Snapshot” (see README) before executing any step below.
+
 _Last updated: October 22, 2025_
 
 ## ✅ Current Progress
