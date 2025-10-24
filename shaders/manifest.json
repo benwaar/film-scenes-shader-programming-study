@@ -1,0 +1,7 @@
+{
+  "fragments": [
+    "hud_text_flicker.frag",
+    "hud_glyph_flip.frag",
+    "hud_crt_curvature.frag"
+  ]
+}

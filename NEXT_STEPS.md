@@ -4,16 +4,17 @@ _Last updated: October 22, 2025_
 
 ## ✅ Current Progress
 - Repository structure created  
-- `README.md` written (Flutter-focused visual language + shader plan)  
-- `/research/flutter-shader-intro.md` complete — includes working example and shader integration guide  
+- `README.md` written 
+- In-helmet HUDstarted  
 
 ---
 
 ## 🧭 Immediate Next Steps
-- [ ] Add first **scene study entry** in `/research/scene-study-template.md`  
-- [ ] Begin shader folder with `film_vignette.frag` (from intro note)  
-- [ ] Create minimal **Flutter test app** to load and display vignette shader  
-- [ ] Document emotional/visual effect in the Visual Notebook  
+- [ ] Document emotional/visual effect from HUD evample  
+- [ ] Begin general shaders with `film_vignette.frag`
+- [ ] detect uniform vec2/vec3 and create multi-knob controls or expose a tiny JSON beside each shader with control metadata (for non-float uniforms)?
+- [ ] Add explainations for the Player.js controls
+- [ ] Understand / document differences between different GL versions
 
 ---
 ## Track: In-Helmet HUD – WebGL (GLSL only)

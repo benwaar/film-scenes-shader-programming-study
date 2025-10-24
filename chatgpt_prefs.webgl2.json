@@ -1,0 +1,32 @@
+{
+  "author": "benwaar",
+  "project": "film-scenes-shader-programming-study",
+  "version": "1.0",
+  "project_type": "shader_study",
+  "environment": {
+    "graphics": "WebGL2",
+    "shader_language": "GLSL ES 3.00",
+    "future_targets": ["WebGPU"]
+  },
+  "preferences": {
+    "prefer_latest_spec": true,
+    "auto_upgrade_shaders": true,
+    "generate_auto_uniform_sliders": true,
+    "detect_legacy_glsl": true,
+    "convert_texture2D_to_texture": true,
+    "upgrade_varying_to_in": true,
+    "build_player_ui": true,
+    "default_ui_theme": "dark"
+  },
+  "paths": {
+    "shader_root": "shaders/",
+    "assets_root": "assets/text/",
+    "manifest": "manifest.json"
+  },
+  "automation": {
+    "enable_scene_templates": true,
+    "auto_generate_manifest": true,
+    "default_canvas_size": [1024, 256]
+  },
+  "notes": "Modern WebGL2 shader study. All shaders should be GLSL ES 3.00 compatible. Automatically upgrade legacy syntax and provide a UI for uniform control sliders."
+}

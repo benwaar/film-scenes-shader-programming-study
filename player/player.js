@@ -6,7 +6,11 @@ const sel = document.getElementById('shaderSelect');
 const lockSlider = document.getElementById('lock');
 const lockVal = document.getElementById('lockVal');
 const auto = document.getElementById('auto');
+const panel = document.getElementById('uniformPanel');
 document.getElementById('reload').onclick = ()=> loadSelected(true);
+
+const SHADER_ROOT = '../shaders/';      // <— reads from repo root /shaders
+const MANIFEST_URL = SHADER_ROOT + 'manifest.json';
 
 const VS_SRC = `#version 300 es
   precision mediump float;
@@ -39,6 +43,7 @@ async function fetchText(url){
   return await res.text();
 }
 
+// #include support (relative to the .frag dir)
 async function preprocess(src, baseDir){
   const lines = src.split(/\r?\n/);
   let out = '';
@@ -55,10 +60,52 @@ async function preprocess(src, baseDir){
   return out;
 }
 
+// Upgrade GLSL ES 1.00 -> 3.00 (heuristics)
+function upgradeTo300es(src){
+  const lines = src.split(/\r?\n/);
+  let body = [];
+  for(const ln of lines){
+    if(ln.trim().startsWith("#version")) continue; // drop existing version
+    body.push(ln);
+  }
+  let s = body.join('\n');
+  s = s.replace(/\btexture2D\s*\(/g, 'texture(');
+  s = s.replace(/\btextureCube\s*\(/g, 'texture(');
+  s = s.replace(/\bgl_FragColor\b/g, 'fragColor');
+  s = s.replace(/\bvarying\b/g, 'in');
+  if(!/\bout\s+vec4\s+fragColor\b/.test(s)){ s = 'out vec4 fragColor;\n' + s; }
+  if(!/\bprecision\s+mediump\s+float\b/.test(s)){ s = 'precision mediump float;\n' + s; }
+  if(!/\bin\s+vec2\s+v_uv\b/.test(s) && !/\bin\s+vec2\s+v_texCoord\b/.test(s)){
+    s = 'in vec2 v_uv;\n' + s;
+  }
+  s = '#version 300 es\n' + s;
+  return s;
+}
+
+// Extract float uniforms with optional hints
+function extractFloatUniforms(src){
+  const re = /uniform\s+float\s+([A-Za-z_][A-Za-z0-9_]*)\s*;\s*(?:\/\/\s*@range\s+(-?\d*\.?\d+)\s+(-?\d*\.?\d+)\s*(?:@step\s+(\d*\.?\d+))?\s*(?:@label\s+(.+))?)?/g;
+  const out = [];
+  let m;
+  while((m = re.exec(src))){
+    const name = m[1];
+    if(name === 'u_time' || name === 'u_lock' || name === 'u_res') continue;
+    const min = m[2] !== undefined ? parseFloat(m[2]) : 0.0;
+    const max = m[3] !== undefined ? parseFloat(m[3]) : 1.0;
+    const step = m[4] !== undefined ? parseFloat(m[4]) : (max-min)/100.0 || 0.01;
+    const label = m[5] ? m[5].trim() : name;
+    out.push({name, min, max, step, label, value: (min+max)/2});
+  }
+  return out;
+}
+
 async function buildProgram(fragPath){
-  const fragRaw = await fetchText(fragPath);
+  let fragRaw = await fetchText(fragPath);
   const baseDir = fragPath.substring(0, fragPath.lastIndexOf('/')) || '.';
-  const fragSrc = await preprocess(fragRaw, baseDir);
+  fragRaw = await preprocess(fragRaw, baseDir);
+  const has300 = /^\s*#version\s+300\s+es\b/m.test(fragRaw);
+  const fragSrc = has300 ? fragRaw : upgradeTo300es(fragRaw);
+
   const vs = compile(gl, gl.VERTEX_SHADER, VS_SRC);
   const fs = compile(gl, gl.FRAGMENT_SHADER, fragSrc);
   const prog = gl.createProgram();
@@ -68,34 +115,26 @@ async function buildProgram(fragPath){
   if(!gl.getProgramParameter(prog, gl.LINK_STATUS)){
     throw new Error('Link error: '+gl.getProgramInfoLog(prog));
   }
-  return prog;
+  return {prog, fragSrc};
 }
 
-// Fullscreen quad
-const verts = new Float32Array([ -1,-1,0,0,  1,-1,1,0,  -1,1,0,1,  1,1,1,1 ]);
-const vao = gl.createVertexArray();
-gl.bindVertexArray(vao);
-const vbo = gl.createBuffer();
-gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
-gl.bufferData(gl.ARRAY_BUFFER, verts, gl.STATIC_DRAW);
-gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0,2,gl.FLOAT,false,16,0);
-gl.enableVertexAttribArray(1); gl.vertexAttribPointer(1,2,gl.FLOAT,false,16,8);
-
-let manifest;
-async function loadManifest(){
-  manifest = await (await fetch('manifest.json')).json();
-  sel.innerHTML = '';
-  for(const f of manifest.fragments){
-    const opt = document.createElement('option');
-    opt.value = manifest.root + f;
-    opt.textContent = f;
-    sel.appendChild(opt);
+function buildUniformUI(uniforms){
+  panel.innerHTML = '';
+  for(const u of uniforms){
+    const box = document.createElement('div'); box.className = 'u';
+    const id = 'u_'+u.name;
+    const label = document.createElement('label'); label.htmlFor = id;
+    const spanVal = document.createElement('span'); spanVal.textContent = u.value.toFixed(3);
+    label.innerHTML = `${u.label} <code>${u.name}</code> = `; label.appendChild(spanVal);
+    const slider = document.createElement('input'); slider.type = 'range';
+    slider.min = u.min; slider.max = u.max; slider.step = u.step; slider.value = u.value;
+    slider.id = id;
+    slider.addEventListener('input', ()=>{ u.value = parseFloat(slider.value); spanVal.textContent = u.value.toFixed(3); });
+    box.appendChild(label); box.appendChild(slider); panel.appendChild(box);
   }
-  const preferred = manifest.fragments.find(f=>f.includes('hud_text_flicker')) || manifest.fragments[0];
-  if(preferred){ sel.value = manifest.root + preferred; }
 }
 
-let prog, locs = {}, startTime;
+let prog, locs = {}, startTime, floatUniforms = [];
 let texEng, texToki;
 
 function makeTex(img){
@@ -108,26 +147,43 @@ function makeTex(img){
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
   return t;
 }
-
 async function loadImage(url){ const i=new Image(); i.src=url; i.decoding='async'; await i.decode(); return i; }
-
 async function ensureTextures(){
   if(texEng && texToki) return;
   const [eng, toki] = await Promise.all([
-    loadImage('assets/text/eng_line.png'),
-    loadImage('assets/text/toki_line.png'),
+    loadImage('../assets/text/eng_line.png'),
+    loadImage('../assets/text/toki_line.png'),
   ]);
-  texEng = makeTex(eng);
-  texToki = makeTex(toki);
+  texEng = makeTex(eng); texToki = makeTex(toki);
+}
+
+async function loadManifest(){
+  const m = await (await fetch(MANIFEST_URL)).json();
+  sel.innerHTML = '';
+  for(const f of m.fragments){
+    const opt = document.createElement('option');
+    opt.value = SHADER_ROOT + f;
+    opt.textContent = f;
+    sel.appendChild(opt);
+  }
+  const preferred = m.fragments.find(f=>f.includes('hud_text_flicker')) || m.fragments[0];
+  if(preferred) sel.value = SHADER_ROOT + preferred;
 }
 
 async function loadSelected(force=false){
   await ensureTextures();
   const fragPath = sel.value;
   if(!force && prog && locs.fragPath === fragPath) return;
-  prog && gl.deleteProgram(prog);
-  prog = await buildProgram(fragPath);
+  if(prog) gl.deleteProgram(prog);
+
+  const built = await buildProgram(fragPath);
+  prog = built.prog;
+  const src = built.fragSrc;
   gl.useProgram(prog);
+
+  floatUniforms = extractFloatUniforms(src);
+  buildUniformUI(floatUniforms);
+
   locs = {
     fragPath,
     u_time: gl.getUniformLocation(prog, 'u_time'),
@@ -138,6 +194,8 @@ async function loadSelected(force=false){
   };
   if(locs.texEng) gl.uniform1i(locs.texEng, 0);
   if(locs.texToki) gl.uniform1i(locs.texToki, 1);
+  for(const u of floatUniforms){ u.loc = gl.getUniformLocation(prog, u.name); }
+
   startTime = performance.now();
 }
 
@@ -160,14 +218,23 @@ function frame(now){
   gl.clearColor(0,0,0,1); gl.clear(gl.COLOR_BUFFER_BIT);
 
   gl.useProgram(prog);
-  const u_time = locs.u_time; if(u_time) gl.uniform1f(u_time, t);
-  const u_lock = locs.u_lock; if(u_lock) gl.uniform1f(u_lock, autolock);
-  const u_res  = locs.u_res;  if(u_res)  gl.uniform2f(u_res, canvas.width, canvas.height);
+  if(locs.u_time) gl.uniform1f(locs.u_time, t);
+  if(locs.u_lock) gl.uniform1f(locs.u_lock, autolock);
+  if(locs.u_res)  gl.uniform2f(locs.u_res, canvas.width, canvas.height);
+  for(const u of floatUniforms){ if(u.loc) gl.uniform1f(u.loc, u.value); }
 
+  // draw
+  const verts = new Float32Array([ -1,-1,0,0,  1,-1,1,0,  -1,1,0,1,  1,1,1,1 ]);
+  const vao = gl.createVertexArray(); gl.bindVertexArray(vao);
+  const vbo = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
+  gl.bufferData(gl.ARRAY_BUFFER, verts, gl.STATIC_DRAW);
+  gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0,2,gl.FLOAT,false,16,0);
+  gl.enableVertexAttribArray(1); gl.vertexAttribPointer(1,2,gl.FLOAT,false,16,8);
+
+  // bind known samplers
   if(locs.texEng){ gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, texEng); }
   if(locs.texToki){ gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, texToki); }
 
-  gl.bindVertexArray(vao);
   gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   requestAnimationFrame(frame);
 }
@@ -177,4 +244,5 @@ function frame(now){
   await loadSelected(true);
   requestAnimationFrame(frame);
 })();
+
 sel.addEventListener('change', ()=> loadSelected(true));

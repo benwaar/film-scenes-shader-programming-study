@@ -1,0 +1,28 @@
+{
+  "author": "benwaar",
+  "version": "1.0",
+  "description": "Base ChatGPT collaboration preferences for creative coding and shader studies.",
+  "defaults": {
+    "prefer_latest_spec": true,
+    "language": "en",
+    "code_style": "clean, modern, modular",
+    "generate_comments": true,
+    "auto_explain_code": true
+  },
+  "environments": {
+    "graphics": ["WebGL2", "WebGPU", "OpenGL ES 3.0+"],
+    "ui_frameworks": ["HTML", "Canvas2D", "React", "Flutter (future)"]
+  },
+  "paths": {
+    "shader_root": "shaders/",
+    "assets_root": "assets/",
+    "docs_root": "docs/"
+  },
+  "project_conventions": {
+    "use_readme_structure": true,
+    "prefer_json_for_config": true,
+    "no_hardcoded_paths": true,
+    "encourage_reuse": true
+  },
+  "notes": "This base preference file should be copied and extended for specific project types (e.g. shader study, WebGPU prototype, etc.)."
+}
