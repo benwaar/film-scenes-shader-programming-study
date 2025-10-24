@@ -1,8 +1,12 @@
+#version 300 es
 precision mediump float;
+
+in vec2 v_uv;
+out vec4 fragColor;
+
 uniform sampler2D baseTex, glowTex; // base text pass + blurred bloom
 uniform float u_time, u_lock;
 uniform vec2 u_res;
-varying vec2 v_texCoord;
 
 vec2 barrel(vec2 uv, float k){
   vec2 c = uv*2.0-1.0;
@@ -13,16 +17,16 @@ vec2 barrel(vec2 uv, float k){
 
 void main(){
   float stability = smoothstep(0.0,1.0,u_lock);
-  vec2 uv = barrel(v_texCoord, 0.12);
+  vec2 uv = barrel(v_uv, 0.12);
   vec2 shift = vec2(0.002*(1.0-stability), 0.0);
 
-  vec3 base = texture2D(baseTex, uv).rgb;
-  vec3 glow = texture2D(glowTex, uv).rgb;
+  vec3 base = texture(baseTex, uv).rgb;
+  vec3 glow = texture(glowTex, uv).rgb;
 
   vec3 rgb;
-  rgb.r = texture2D(baseTex, uv + shift).r;
+  rgb.r = texture(baseTex, uv + shift).r;
   rgb.g = base.g;
-  rgb.b = texture2D(baseTex, uv - shift).b;
+  rgb.b = texture(baseTex, uv - shift).b;
   rgb = mix(rgb, base, stability);
 
   float scan = 0.92 + 0.08*sin((uv.y*u_res.y) + u_time*220.0);
@@ -33,5 +37,5 @@ void main(){
   float vig = smoothstep(0.95, 0.55, length(uv-0.5));
   rgb *= (1.0 - 0.35*vig);
 
-  gl_FragColor = vec4(rgb, 1.0);
+  fragColor = vec4(rgb, 1.0);
 }

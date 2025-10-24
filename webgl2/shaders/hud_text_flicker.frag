@@ -1,13 +1,18 @@
+#version 300 es
 precision mediump float;
+
+in vec2 v_uv;
+in vec2 v_texCoord; // for compatibility
+out vec4 fragColor;
+
 uniform sampler2D texEng, texToki;
 uniform float u_time, u_lock; // 0..1
 uniform vec2  u_res;          // viewport
-varying vec2  v_texCoord;     // adjust to your pipeline
 
-float hash2(vec2 p){ return fract(sin(dot(p, vec2(12.9898,78.233)))*43758.5453); }
+float hash2(vec2 p){ return fract(sin(dot(p, vec2(12.9898,78.233))) * 43758.5453); }
 
 void main(){
-  vec2 uv = v_texCoord;
+  vec2 uv = v_uv;
 
   // occasional horizontal tear
   float line = floor(uv.y * u_res.y);
@@ -21,14 +26,14 @@ void main(){
   // subtle chroma split
   vec2 shift = vec2(0.0015, 0.0);
   vec3 eng = vec3(
-    texture2D(texEng, uv+shift).r,
-    texture2D(texEng, uv).g,
-    texture2D(texEng, uv-shift).b
+    texture(texEng, uv+shift).r,
+    texture(texEng, uv).g,
+    texture(texEng, uv-shift).b
   );
   vec3 tok = vec3(
-    texture2D(texToki, uv+shift).r,
-    texture2D(texToki, uv).g,
-    texture2D(texToki, uv-shift).b
+    texture(texToki, uv+shift).r,
+    texture(texToki, uv).g,
+    texture(texToki, uv-shift).b
   );
   vec3 col = mix(eng, tok, mixLang);
 
@@ -37,5 +42,5 @@ void main(){
   float vig  = smoothstep(0.95, 0.6, length(uv-0.5));
   col *= scan * (1.0 - 0.35*vig);
 
-  gl_FragColor = vec4(col, 1.0);
+  fragColor = vec4(col, 1.0);
 }

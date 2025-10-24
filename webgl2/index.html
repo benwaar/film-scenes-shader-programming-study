@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Shader Player (WebGL2) – External .frag Loader</title>
+  <style>
+    :root{color-scheme:dark light}
+    body{margin:0;font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;background:#0b0b0b;color:#e6e6e6}
+    header{padding:12px 16px;border-bottom:1px solid #222;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    main{padding:16px;display:grid;gap:16px}
+    canvas{width:1024px;max-width:95vw;height:auto;border:1px solid #222;background:black;border-radius:8px;display:block}
+    .panel{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+    select,input[type=range],button{background:#111;border:1px solid #333;border-radius:6px;color:#eee;padding:6px 8px}
+    label{font-size:14px;opacity:.85}
+    .small{font-size:12px;opacity:.7}
+  </style>
+</head>
+<body>
+  <header>
+    <strong>Shader:</strong>
+    <select id="shaderSelect"></select>
+    <button id="reload">Reload</button>
+    <div class="panel">
+      <label>Lock <span id="lockVal">0.00</span>
+        <input id="lock" type="range" min="0" max="1" step="0.001" value="0"/>
+      </label>
+      <label><input id="auto" type="checkbox" checked/> Auto-train</label>
+      <span class="small">HUD studies expect: <code>u_time</code>, <code>u_lock</code>, <code>u_res</code>, and samplers like <code>texEng</code>/<code>texToki</code>.</span>
+    </div>
+  </header>
+  <main>
+    <canvas id="glcanvas" width="1024" height="256"></canvas>
+    <div class="small">Add .frag files to <code>/shaders</code>. They appear via <code>manifest.json</code>.</div>
+  </main>
+  <script type="module" src="player.js"></script>
+</body>
+</html>

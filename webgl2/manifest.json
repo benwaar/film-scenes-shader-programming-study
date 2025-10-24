@@ -1,0 +1,9 @@
+{
+  "root": "shaders/",
+  "fragments": [
+    "hud_crt_curvature.frag",
+    "hud_glyph_flip.frag",
+    "hud_text_flicker.frag"
+  ],
+  "note": "Add or remove .frag files in /shaders; they will appear in the dropdown."
+}
