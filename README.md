@@ -29,6 +29,7 @@ Visual Storytelling
 
 To continue from where the last session left off, see:  
 👉 [**STUDY_PLAN.md**](STUDY_PLAN.md)
+👉 [**PHASE2.md**](PHASE2.md)
 
 
 ### Notes & Explanations
@@ -80,22 +81,11 @@ Here are key references used to guide shader development and visual research:
 
 ---
 
-## 🔄 Project Continuation
-
-This repository is part of an ongoing creative research series exploring film imagery and shaders.
-
-To continue from where the last session left off, see:  
-👉 [**NEXT_STEPS.md**](NEXT_STEPS.md)
-
-That file tracks the most recent progress, current focus, and upcoming experiments.
-
----
-
-## 🚀 Start here for new sessions
+##  Start here for new sessions
 
 If you're opening this project in a **fresh ChatGPT session** (or for a new collaborator):
 
 1. Read **`START_HERE_FOR_CHATGPT.md`** for the bootstrapping instructions and project preferences.
-2. Then read **`NEXT_STEPS.md`** to continue from the topmost unchecked item.
+2. Follow the curriculum in **`STUDY_PLAN.md`** and **`PHASE2.md`**.
 3. Keep code clean, modern, and well-commented; target **WebGL2 / GLSL ES 3.00** and use `shaders/manifest.json`.
 

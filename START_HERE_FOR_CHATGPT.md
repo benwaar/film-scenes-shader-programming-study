@@ -6,7 +6,8 @@ This repository is a **shader study project**. When a new chat begins, **read an
 - `chatgpt_prefs.base.json`
 - `chatgpt_prefs.webgl2.json`
 - `README.md`
-- `NEXT_STEPS.md`
+- `STUDY_PLAN.md`
+- `PHASE2.md`
 
 ## 2) Apply the prefs (summary)
 - Target **WebGL2** with **GLSL ES 3.00** (auto-upgrade legacy GLSL if needed).
@@ -24,8 +25,8 @@ This repository is a **shader study project**. When a new chat begins, **read an
 
 ## 4) When continuing the study
 - **Read `README.md`** for context and conventions.
-- **Read `NEXT_STEPS.md`** and continue from the topmost unchecked step. If a task is too big, break it into small, testable changes.
-- Use commit-style messages in explanations (e.g., “feat(shader): add hud_symbol_pulse with hue slider”).
+- **Read `STUDY_PLAN.md` and `PHASE2.md`** to understand the curriculum.
+- Use commit-style messages in explanations (e.g., "feat(shader): add hud_symbol_pulse with hue slider").
 
 ## 5) Safe defaults for helpers
 - If a new shader is requested, start from a **minimal, commented stub** compatible with the WebGL2 player and register it in `manifest.json`.
@@ -35,4 +36,4 @@ This repository is a **shader study project**. When a new chat begins, **read an
 ---
 
 **Reminder for Chat Start**  
-> “Please read `chatgpt_prefs.base.json`, `chatgpt_prefs.webgl2.json`, `README.md`, and `NEXT_STEPS.md`. Apply the prefs and continue the study accordingly.”
+> "Please read `chatgpt_prefs.base.json`, `chatgpt_prefs.webgl2.json`, `README.md`, `STUDY_PLAN.md`, and `PHASE2.md`. Apply the prefs and continue the study accordingly."
